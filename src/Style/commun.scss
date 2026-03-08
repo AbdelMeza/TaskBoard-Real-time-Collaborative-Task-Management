@@ -1,1 +1,40 @@
-@import "./variables";
+/**
+ * Replaced @import with @use for better encapsulation.
+ * This follows the Dart Sass 1.80+ deprecation roadmap for Sass 3.0.
+ */
+
+@use "theme" as v;
+@use "config" as c;
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  border: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.pad-1{
+    padding: c.$space-1;
+}.pad-2{
+    padding: c.$space-2;
+}.pad-3{
+    padding: c.$space-3;
+}
+
+.radius-1{
+    border-radius: c.$radius-1;
+}.radius-1{
+    border-radius: c.$radius-2;
+}.radius-1{
+    border-radius: c.$radius-3;
+}

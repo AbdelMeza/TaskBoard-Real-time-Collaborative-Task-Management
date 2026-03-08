@@ -1,0 +1,10 @@
+// Spacing scale 
+$space-1: clamp(15px, 2vw, 20px);
+$space-2: calc(#{$space-1} * 1.618);
+$space-3: calc(#{$space-2} * 1.618);
+
+// Border radius scale
+$radius-1: clamp(10px, 1.5vw, 15px);
+$radius-2: calc(#{$radius-1} * 1.618);
+$radius-3: calc(#{$radius-2} * 1.618);
+

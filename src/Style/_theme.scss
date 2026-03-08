@@ -1,0 +1,35 @@
+//Dark theme colors
+
+$dark-color-100: #111;
+$dark-color-200: #4b4b4b;
+$dark-color-300: #8e8e8e;
+$dark-bg-100: #161616;
+$dark-bg-200: #202020;
+$dark-bg-300: #2a2a2a;
+
+//Light theme colors
+
+$light-color-100: #f1f1f1;
+$light-color-200: #d3d3d3;
+$light-color-300: #a8a8a8;
+$light-bg-100: #f3eeec;
+$light-bg-200: #dfdad8;
+$light-bg-300: #c8c2c0;
+
+:root {
+  --ligth-color-100: #{$light-color-100};
+  --ligth-color-200: #{$light-color-200};
+  --ligth-color-300: #{$light-color-300};
+  --ligth-bg-100: #{$light-bg-100};
+  --ligth-bg-200: #{$light-bg-200};
+  --ligth-bg-300: #{$light-bg-300};
+}
+
+[data-theme="dark"] {
+  --dark-color-100: #{$dark-color-100};
+  --dark-color-200: #{$dark-color-200};
+  --dark-color-300: #{$dark-color-300};
+  --dark-bg-100: #{$dark-bg-100};
+  --dark-bg-200: #{$dark-bg-200};
+  --dark-bg-300: #{$dark-bg-300};
+}

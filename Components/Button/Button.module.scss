@@ -1,0 +1,7 @@
+@use "../../src/Style/config" as config;
+
+.mainButton{
+    &.disabled{
+        opacity: 0.2;
+    }
+}

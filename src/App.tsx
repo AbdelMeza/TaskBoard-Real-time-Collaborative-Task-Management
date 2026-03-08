@@ -1,11 +1,14 @@
-import './Style/commun.scss'
+import LoginPage from "../Pages/AuthPages/LoginPage";
+import "./Style/commun.scss";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <>
-      <h1>qzdqzdqzd</h1>
-    </>
-  )
+    <Routes>
+      <Route path="/" element={""} />
+      <Route path="/login" element={<LoginPage />} />
+    </Routes>
+  );
 }
 
 export default App;

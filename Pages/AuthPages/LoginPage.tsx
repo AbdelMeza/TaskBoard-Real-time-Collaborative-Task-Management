@@ -1,4 +1,6 @@
+import './AuthPages.scss'
 import { useState } from "react"
+import Input from "../../Components/Inputs/Inputs"
 import Button from "../../Components/Button/Button"
 
 export default function LoginPage() {
@@ -11,7 +13,7 @@ export default function LoginPage() {
     const isDisabled = username.trim() === "" || email.trim() === "" || password.trim() === ""
 
     return (
-        <div className="loginPage">
+        <div className="login-page">
             <div className="form-container">
                 <div className="upper-content">
                     {/* Reusable input components with two-way data binding */}
@@ -36,7 +38,7 @@ export default function LoginPage() {
                 </div>
                 <div className="lower-content">
                     {/* The button receives the calculated disabled state */}
-                    <Button content="Login" isDisabled={isDisabled} />
+                    <Button type="main" size={2} content="Login" isDisabled={isDisabled} />
                 </div>
             </div>
         </div>
@@ -58,14 +60,13 @@ type InputsContainerProps = {
 function InputsContainer({ label, inputType, value, onChange }: InputsContainerProps) {
     return (
         <div className="inputs-container">
-            {/* Accessibility: id and htmlFor connection */}
             <label htmlFor={label}>{label}</label>
-            <input
+            <Input
                 id={label}
-                type={inputType}
+                placeholder={""}
+                inputType={inputType}
                 value={value}
-                // Extracts the string value from the change event
-                onChange={(e) => onChange(e.target.value)}
+                onChange={onChange}
             />
         </div>
     )

@@ -1,5 +1,5 @@
 import LoginPage from "../Pages/AuthPages/LoginPage";
-import "./Style/commun.scss";
+import "./Style/common.scss";
 import { Route, Routes } from "react-router-dom";
 
 function App() {

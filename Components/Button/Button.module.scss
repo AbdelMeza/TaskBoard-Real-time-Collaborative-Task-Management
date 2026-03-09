@@ -1,7 +1,25 @@
-@use "../../src/Style/config" as config;
+@use "../../src/Style/config" as c;
+@use "../../src/Style/theme" as t;
 
-.mainButton{
-    &.disabled{
-        opacity: 0.2;
-    }
+.mainButton {
+  cursor: pointer;
+  border-radius: c.$radius-1;
+  width: 100%;
+
+  &.disabled {
+    opacity: 0.8;
+  }
+}
+
+.buttonType-main {
+  background-color: t.$dark-bg-200;
+  color: t.$light-color-100;
+}
+
+.buttonSize-1 {
+  height: c.$height-1;
+}
+
+.buttonSize-2 {
+  height: c.$height-2;
 }

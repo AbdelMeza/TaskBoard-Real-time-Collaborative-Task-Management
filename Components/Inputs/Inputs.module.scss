@@ -1,0 +1,9 @@
+@use '../../src/Style/config' as c;
+@use '../../src/Style/theme' as t;
+
+.input{
+    border-radius: c.$radius-1;
+    border: 1px solid t.$light-color-200;
+    height: c.$height-2;
+    padding: 0 c.$space-1;
+}

@@ -2,6 +2,7 @@ import cors from "cors"
 import dotenv from "dotenv"
 import express from "express"
 import mongoose from "mongoose"
+import authRouter from "./Routers/authRouter"
 
 dotenv.config()
 
@@ -68,3 +69,5 @@ const gracefulShutdown = (signal: string) => {
 // Listen for system signals
 process.on("SIGTERM", () => gracefulShutdown("SIGTERM")) // Sent by hosts (Docker, PM2)
 process.on("SIGINT", () => gracefulShutdown("SIGINT"))   // Sent by Ctrl+C in terminal
+
+app.use("/auth", authRouter)

@@ -1,31 +1,45 @@
-@use '../../src/Style/config' as c;
-@use '../../src/Style/theme' as t;
+@use "../../src/Style/config" as c;
+@use "../../src/Style/theme" as t;
 
-.login-page, .signup-page{
-    min-height: 100vh;
-    background-color: t.$light-bg-200;
-    @include c.flex-center
+.login-page,
+.signup-page {
+  min-height: 100vh;
+  background-color: t.$light-bg-200;
 }
 
-.form-container{
+.form-container {
+  @include c.flex-center;
+  height: 100vh;
+  background-color: t.$light-bg-100;
+  border: 1px solid t.$light-color-200;
+  padding: 0 c.$space-4;
+  width: 40vw;
+  min-width: 450px;
+
+  .form-content {
+    flex: 1;
     display: flex;
-    background-color: t.$light-bg-100;
-    border: 1px solid t.$light-color-200;
-    padding: c.$space-2;
-    border-radius: c.$radius-2;
-    width: clamp(400px, 35vw, 500px);
     flex-direction: column;
     gap: c.$space-2;
-    
-    .upper-content{
-        display: flex;
-        flex-direction: column;
-        gap: c.$space-1;
+    width: clamp(400px, 40vw, 750px);
+    max-width: 750px;
+
+    .upper-content {
+      display: flex;
+      flex-direction: column;
+      gap: c.$space-1;
     }
+  }
 }
 
-.inputs-container{
-    display: flex;
-    flex-direction: column;
-    gap: c.$space-1;
+.inputs-container {
+  display: flex;
+  flex-direction: column;
+  gap: c.$space-1;
+}
+
+@media screen and (max-width: 750px) {
+    .form-container{
+        width: 100%;
+    }
 }

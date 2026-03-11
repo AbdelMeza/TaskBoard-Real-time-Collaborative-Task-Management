@@ -25,5 +25,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "Pages", "Components", "globals.d.ts"]
+  "include": ["src", "Pages", "Components", "Stores", "globals.d.ts", "vite-env.d.ts"]
 }

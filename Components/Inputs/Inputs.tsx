@@ -6,9 +6,10 @@ type InputType = {
     value: string,
     onChange: (value: string) => void
     placeholder: string
+    hasError: boolean
 }
 
-export default function Input({ id, inputType, value, onChange, placeholder }: InputType) {
+export default function Input({ id, inputType, value, onChange, placeholder, hasError }: InputType) {
     return (
         <input
             id={id}
@@ -16,7 +17,7 @@ export default function Input({ id, inputType, value, onChange, placeholder }: I
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
-            className={`input-element ${i.input}`}
+            className={`input-element ${i.input} ${hasError ? i.inputError : ""}`}
         />
     )
 }

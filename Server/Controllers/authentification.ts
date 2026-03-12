@@ -1,7 +1,7 @@
 import type { Request, Response } from "express"
-import { user_model } from "../Models/user.model"
-import { createToken } from "../utils/token"
-import { comparePasswords } from "../utils/hashPass"
+import { user_model } from "../Models/user.model.ts"
+import { createToken } from "../utils/token.ts"
+import { comparePasswords } from "../utils/hashPass.ts"
 
 // User login controller for the task management application.
 // - Validates incoming fields

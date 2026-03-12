@@ -6,7 +6,7 @@ import useAuth from '../../Stores/useAuth'
 
 export default function LoginPage() {
     // State hooks to store user credentials initialized as empty strings
-    const { login } = useAuth()
+    const { login, errors } = useAuth()
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -15,8 +15,6 @@ export default function LoginPage() {
     const isDisabled = username.trim() === "" || email.trim() === "" || password.trim() === ""
 
     const handleSubmit = () => {
-        if (isDisabled) return
-
         login({ username, email, password })
     }
 
@@ -31,24 +29,33 @@ export default function LoginPage() {
                             inputType="text"
                             value={username}
                             onChange={(value) => setUsername(value)}
+                            error={errors?.map(e => {
+                                if(e.field === "username") return e.message
+                            })}
                         />
                         <InputsContainer
                             label="Email"
                             inputType="email"
                             value={email}
                             onChange={(value) => setEmail(value)}
+                            error={errors?.map(e => {
+                                if(e.field === "email") return e.message
+                            })}
                         />
                         <InputsContainer
                             label="Password"
                             inputType="password"
                             value={password}
                             onChange={(value) => setPassword(value)}
+                            error={errors?.map(e => {
+                                if(e.field === "password") return e.message
+                            })}
                         />
                     </div>
                     <div className="lower-content">
                         {/* The button receives the calculated disabled state */}
                         <div onClick={handleSubmit}>
-                            <Button type="main" size={2} content="Login" isDisabled={isDisabled} />
+                            <Button type="main" size={2} content="Login" />
                         </div>
                     </div>
                 </div>
@@ -63,13 +70,14 @@ type InputsContainerProps = {
     inputType: string
     value: string
     onChange: (value: string) => void
+    error: string
 }
 
 /**
  * Functional component for a labeled input field
  * It notifies the parent of changes via the onChange callback
  */
-function InputsContainer({ label, inputType, value, onChange }: InputsContainerProps) {
+function InputsContainer({ label, inputType, value, onChange, error }: InputsContainerProps) {
     return (
         <div className="inputs-container">
             <label htmlFor={label}>{label}</label>
@@ -78,8 +86,10 @@ function InputsContainer({ label, inputType, value, onChange }: InputsContainerP
                 placeholder={""}
                 inputType={inputType}
                 value={value}
+                hasError={error !== undefined}
                 onChange={onChange}
             />
+            {error ? <span className="error-message">{error}</span> : null}
         </div>
     )
 }

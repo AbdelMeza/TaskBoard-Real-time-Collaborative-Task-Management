@@ -32,7 +32,7 @@ const useAuth = create<authType>((set) => ({
             const data = await res.json()
 
             if (!res.ok) {
-                set({ user: null, errors: [{ field: "global", message: "Login failed" }] })
+                set({ user: null, errors: data.errors})
                 return false
             }
 

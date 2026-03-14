@@ -5,17 +5,21 @@ import Button from "../../Components/Button/Button"
 import useAuth from '../../Stores/useAuth'
 
 export default function LoginPage() {
-    // State hooks to store user credentials initialized as empty strings
     const { login, errors } = useAuth()
-    const [username, setUsername] = useState("")
-    const [email, setEmail] = useState("")
+    const [identifier, setIdentifier] = useState("")
     const [password, setPassword] = useState("")
 
-    // Derived state: the button is disabled if any field is empty after trimming whitespace
-    const isDisabled = username.trim() === "" || email.trim() === "" || password.trim() === ""
+    // Form submission handler
+    const handleSubmit = async () => {
+        const success = await login({ identifier, password })
+        if (success) {
+            // Logic for redirection could go here
+        }
+    }
 
-    const handleSubmit = () => {
-        login({ username, email, password })
+    // Helper to find a specific error message by field name
+    const getFieldError = (fieldName: string) => {
+        return errors?.find(e => e.field === fieldName)?.message
     }
 
     return (
@@ -23,39 +27,25 @@ export default function LoginPage() {
             <div className="form-container">
                 <div className="form-content">
                     <div className="upper-content">
-                        {/* Reusable input components with two-way data binding */}
                         <InputsContainer
-                            label="Username"
+                            label="Username or email"
                             inputType="text"
-                            value={username}
-                            onChange={(value) => setUsername(value)}
-                            error={errors?.map(e => {
-                                if(e.field === "username") return e.message
-                            })}
-                        />
-                        <InputsContainer
-                            label="Email"
-                            inputType="email"
-                            value={email}
-                            onChange={(value) => setEmail(value)}
-                            error={errors?.map(e => {
-                                if(e.field === "email") return e.message
-                            })}
+                            value={identifier}
+                            onChange={setIdentifier}
+                            error={getFieldError("identifier")}
                         />
                         <InputsContainer
                             label="Password"
                             inputType="password"
                             value={password}
-                            onChange={(value) => setPassword(value)}
-                            error={errors?.map(e => {
-                                if(e.field === "password") return e.message
-                            })}
+                            onChange={setPassword}
+                            error={getFieldError("password")}
                         />
                     </div>
                     <div className="lower-content">
-                        {/* The button receives the calculated disabled state */}
+                        {/* Using a wrapper div or a dedicated button prop for click events */}
                         <div onClick={handleSubmit}>
-                            <Button type="main" size={2} content="Login" />
+                            <Button type="main" size={2} content="Login" isDisabled={false}/>
                         </div>
                     </div>
                 </div>
@@ -64,19 +54,14 @@ export default function LoginPage() {
     )
 }
 
-// Type definition for the InputsContainer props
 type InputsContainerProps = {
     label: string
     inputType: string
     value: string
     onChange: (value: string) => void
-    error: string
+    error?: string // Changed to optional
 }
 
-/**
- * Functional component for a labeled input field
- * It notifies the parent of changes via the onChange callback
- */
 function InputsContainer({ label, inputType, value, onChange, error }: InputsContainerProps) {
     return (
         <div className="inputs-container">
@@ -86,10 +71,10 @@ function InputsContainer({ label, inputType, value, onChange, error }: InputsCon
                 placeholder={""}
                 inputType={inputType}
                 value={value}
-                hasError={error !== undefined}
+                hasError={!!error}
                 onChange={onChange}
             />
-            {error ? <span className="error-message">{error}</span> : null}
+            {error && <span className="error-message">{error}</span>}
         </div>
     )
 }

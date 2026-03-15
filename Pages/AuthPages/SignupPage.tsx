@@ -1,16 +1,24 @@
 import "./AuthPages.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../../Components/Inputs/Inputs";
 import Button from "../../Components/Button/Button";
 import useAuth from "../../Stores/useAuth";
 import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
-  const { signup, errors } = useAuth();
+  const { signup, errors, authLoading, clearErrors } = useAuth();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    // Clear errors when the component mounts or when the user starts typing
+    return () => {
+      clearErrors();
+    };
+  }, [username, email, password]);
+
 
   // Form submission handler
   const handleSubmit = async () => {
@@ -52,10 +60,13 @@ export default function SignUp() {
               error={getFieldError("password")}
             />
           </div>
+          <div className="middle-content">
+                <span className="auth-switch">Already have an account? <span className="switch-link" onClick={() => navigate("/login")}>Log in</span> </span>
+          </div>
           <div className="lower-content">
             {/* Using a wrapper div or a dedicated button prop for click events */}
             <div onClick={handleSubmit}>
-              <Button type="main" size={2} content="Create account" isDisabled={false} />
+              <Button type="main" size={2} content={authLoading ? "Creating account..." : "Create account"} isDisabled={false} />
             </div>
           </div>
         </div>

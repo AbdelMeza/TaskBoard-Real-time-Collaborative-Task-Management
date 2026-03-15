@@ -14,6 +14,8 @@ type errorType = {
 type authType = {
     user: null | userType
     errors: null | errorType[]
+    authLoading: boolean
+    clearErrors: () => void
     login: (values: { identifier: string, password: string }) => Promise<boolean>
     signup: (values: { username: string, email: string, password: string }) => Promise<boolean>
 }
@@ -21,9 +23,13 @@ type authType = {
 const useAuth = create<authType>((set) => ({
     user: null,
     errors: null,
+    authLoading: false,
+
+    clearErrors: () => set({ errors: null }),
 
     login: async (values) => {
         try {
+            set({ authLoading: true })
             const res = await fetch(`${API_URL}/auth/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -35,19 +41,23 @@ const useAuth = create<authType>((set) => ({
 
             if (!res.ok) {
                 set({ user: null, errors: data.errors})
+                set({ authLoading: false })
                 return false
             }
 
             set({ user: { username: data.user.username, id: data.user.id } })
+            set({ authLoading: false })
             return true
         } catch (err) {
             console.log(err)
+            set({ authLoading: false })
             return false
         }
     },
 
     signup: async (values) => {
         try {
+            set({ authLoading: true })
             const res = await fetch(`${API_URL}/auth/signup`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -58,13 +68,16 @@ const useAuth = create<authType>((set) => ({
 
             if (!res.ok) {
                 set({ user: null, errors: data.errors})
+                set({ authLoading: false })
                 return false
             }
 
             set({ user: { username: data.user.username, id: data.user.id } })
+            set({ authLoading: false })
             return true
         } catch (err) {
             console.log(err)
+            set({ authLoading: false })
             return false
         }
     }

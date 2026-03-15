@@ -43,6 +43,17 @@
   font-size: c.$fontsize-2;
 }
 
+.auth-switch {
+  font-size: c.$fontsize-2;
+  color: t.$dark-color-200;
+
+  .switch-link {
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: bold;
+  }
+}
+
 @media screen and (max-width: 750px) {
     .form-container{
         width: 100%;

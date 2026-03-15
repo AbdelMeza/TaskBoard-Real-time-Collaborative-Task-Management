@@ -1,19 +1,28 @@
 import './AuthPages.scss'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Input from "../../Components/Inputs/Inputs"
 import Button from "../../Components/Button/Button"
 import useAuth from '../../Stores/useAuth'
+import { useNavigate } from 'react-router-dom'
 
 export default function LoginPage() {
-    const { login, errors } = useAuth()
+    const navigate = useNavigate()
+    const { login, errors, authLoading, clearErrors } = useAuth()
     const [identifier, setIdentifier] = useState("")
     const [password, setPassword] = useState("")
+
+    useEffect(() => {
+        // Clear errors when the component mounts or when the user starts typing
+        return () => {
+            clearErrors()
+        }
+    }, [identifier, password])
 
     // Form submission handler
     const handleSubmit = async () => {
         const success = await login({ identifier, password })
         if (success) {
-            // Logic for redirection could go here
+            navigate("/") // Redirect to home page on successful login
         }
     }
 
@@ -42,10 +51,13 @@ export default function LoginPage() {
                             error={getFieldError("password")}
                         />
                     </div>
+                    <div className="middle-content">
+                        <span className="auth-switch">Don't have an account? <span className="switch-link" onClick={() => navigate("/signup")}>Sign up</span> </span>
+                    </div>
                     <div className="lower-content">
                         {/* Using a wrapper div or a dedicated button prop for click events */}
                         <div onClick={handleSubmit}>
-                            <Button type="main" size={2} content="Login" isDisabled={false}/>
+                            <Button type="main" size={2} content={authLoading ? "Logging in..." : "Login"} isDisabled={false}/>
                         </div>
                     </div>
                 </div>
